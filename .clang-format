@@ -1,0 +1,9 @@
+---
+IndentWidth: 3
+AllowShortBlocksOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+PointerAlignment: Left
+ColumnLimit: 80
+AccessModifierOffset: -3
