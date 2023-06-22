@@ -2,6 +2,7 @@
 
 // Local include(s).
 #include "RDFTrigDecision/AddTriggerDecisionColumn.h"
+#include "RDFTrigDecision/TrigDecisionToolArray.h"
 
 // Analysis include(s).
 #include "xAODDataSource/MakeDataFrame.h"
@@ -21,9 +22,10 @@ int main() {
    if (gSystem->GetSysInfo(&sysInfo) != 0) {
       return EXIT_FAILURE;
    }
+   const std::size_t nCPUs = static_cast<std::size_t>(sysInfo.fCpus);
 
    // Set up the runtime environment.
-   ROOT::EnableImplicitMT(sysInfo.fCpus);
+   ROOT::EnableImplicitMT(nCPUs);
    if (xAOD::Init().isFailure()) {
       return EXIT_FAILURE;
    }
@@ -31,12 +33,15 @@ int main() {
    // Create a data frame from the standard test file.
    auto df = xAOD::MakeDataFrame("${ASG_TEST_FILE_LITE_MC}");
 
+   // Create the object holding the trigger tools.
+   TrigDecisionToolArray tdtArray{"Cpp", "", nCPUs};
+
    // Name of the trigger to test.
    static const std::string trigName = "HLT_mu26_ivarmedium";
 
    // Add the trigger decision column to the data frame.
-   auto df_trig = df.DefineSlot(
-       trigName, AddTriggerDecisionColumn(trigName, sysInfo.fCpus));
+   auto df_trig =
+       df.DefineSlot(trigName, AddTriggerDecisionColumn(trigName, tdtArray));
 
    // Create a simple histogram with the trigger decisions.
    auto h = df_trig.Histo1D(trigName);
