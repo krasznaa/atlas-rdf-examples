@@ -13,8 +13,15 @@ atlas_add_library(RDFTrigDecisionLib
   LINK_LIBRARIES TrigDecisionToolLib
   PRIVATE_LINK_LIBRARIES TrigConfxAODLib)
 
+atlas_add_dictionary(RDFTrigDecisionDict
+  RDFTrigDecision/RDFTrigDecisionDict.h
+  RDFTrigDecision/selection.xml
+  LINK_LIBRARIES RDFTrigDecisionLib)
+
 # Test application(s) in the package.
 atlas_add_executable(rdftdt_test
   utils/rdftdt_test.cxx
   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
   LINK_LIBRARIES ${ROOT_LIBRARIES} xAODDataSourceLib RDFTrigDecisionLib)
+
+atlas_install_scripts(utils/*.py)
