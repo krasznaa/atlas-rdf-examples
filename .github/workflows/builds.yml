@@ -1,0 +1,56 @@
+# Copyright (C) 2023 CERN for the benefit of the ATLAS collaboration
+
+# Name for this "action".
+name: Build Tests
+
+# Perform the builds on every push and pull request.
+on: [ push, pull_request ]
+
+# All the different build/test jobs.
+jobs:
+
+  # Containerised build jobs.
+  container:
+
+    # The different build modes to test.
+    strategy:
+      matrix:
+        CONTAINER: [
+          "gitlab-registry.cern.ch/atlas/athena/analysisbase:24.2.24"
+          ]
+        BUILD_TYPE: [
+          "Debug",
+          "Release"
+          ]
+
+    # The system to run on.
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.CONTAINER }}
+      options: --user root
+
+    # Use BASH as the shell from the image.
+    defaults:
+      run:
+        shell: bash
+
+    # The build/test steps to execute.
+    steps:
+    # Use a standard checkout of the code.
+    - uses: actions/checkout@v2
+    # Run the CMake configuration.
+    - name: Configure
+      run: |
+        source /release_setup.sh
+        cmake -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} -S ${GITHUB_WORKSPACE} -B build
+    # Perform the build.
+    - name: Build
+      run: |
+        source /release_setup.sh
+        cmake --build build
+    # Run the unit test(s).
+    - name: Test
+      run: |
+        cd build
+        source /release_setup.sh
+        ctest --output-on-failure
