@@ -4,8 +4,8 @@
 #include "RDFGoodRunsLists/AddGRLColumn.h"
 
 // Athena include(s).
-#include "GoodRunsLists/TGoodRunsListReader.h"
 #include "GoodRunsLists/TGRLCollection.h"
+#include "GoodRunsLists/TGoodRunsListReader.h"
 #include "PathResolver/PathResolver.h"
 
 // System include(s).
@@ -20,10 +20,10 @@ struct AddGRLColumnData {
 }; // struct AddGRLColumnData
 
 AddGRLColumn::AddGRLColumn(std::string_view grlFileName)
-: m_data{new AddGRLColumnData()} {
+    : m_data{new AddGRLColumnData()} {
 
    // Find the concrete file name for the XML.
-   const std::string fn = PathResolverFindXMLFile(std::string{grlFileName});
+   const std::string fn = PathResolverFindCalibFile(std::string{grlFileName});
    if (fn == "") {
       throw std::runtime_error("Could not find file: " +
                                std::string{grlFileName});
@@ -42,10 +42,10 @@ AddGRLColumn::AddGRLColumn(std::string_view grlFileName)
 }
 
 AddGRLColumn::AddGRLColumn(AddGRLColumn&& parent)
-: m_data(std::move(parent.m_data)) {}
+    : m_data(std::move(parent.m_data)) {}
 
 AddGRLColumn::AddGRLColumn(const AddGRLColumn& parent)
-: m_data{new AddGRLColumnData()} {
+    : m_data{new AddGRLColumnData()} {
 
    m_data->m_grl = parent.m_data->m_grl;
 }

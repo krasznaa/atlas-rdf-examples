@@ -12,6 +12,12 @@
 /// Forward declaration of the internal data type.
 struct AddGRLColumnData;
 
+/// Functor adding a GRL decision column to a data frame
+///
+/// This class is used to add a GRL decision column to a data frame. The
+/// constructor takes the name of the GRL XML file to use, and the functor
+/// can then be used to add the decision column to a @c ROOT::RDataFrame object.
+///
 class AddGRLColumn {
 
 public:
