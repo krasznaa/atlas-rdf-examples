@@ -24,3 +24,5 @@ atlas_add_executable(rdfgrl_test
   INCLUDE_DIRS ${ROOT_INCLUDE_DIRS}
   LINK_LIBRARIES ${ROOT_LIBRARIES} xAODRootAccess xAODDataSourceLib
                  RDFGoodRunsListsLib)
+
+atlas_install_scripts(utils/*.py)
