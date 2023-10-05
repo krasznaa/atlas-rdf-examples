@@ -1,2 +1,3 @@
-# rdftdt
-Code demonstrating the use of Trig::TrigDecisionTool in a ROOT::RDataFrame based job
+# ATLAS `ROOT::RDataFrame` Examples
+
+Code demonstrating the use of various ATLAS analysis tools in `ROOT::RDataFrame` based jobs.
