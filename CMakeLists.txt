@@ -2,10 +2,14 @@
 
 # Set up the project.
 cmake_minimum_required(VERSION 3.20)
-project(RDFTrigDecisionTool VERSION 0.1.0 LANGUAGES CXX)
+project(ATLASRDFExamples VERSION 0.2.0 LANGUAGES CXX)
 
 # Find the base release.
 find_package(AnalysisBase 24.2 REQUIRED)
+
+# Generate a compile_commands.json file by default.
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE CACHE BOOL
+   "Generate compile_commands.json" FORCE)
 
 # Set up CTest.
 atlas_ctest_setup()

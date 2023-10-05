@@ -1,0 +1,21 @@
+{
+   "name": "AnalysisBase",
+   "dockerFile": "Dockerfile",
+
+   "runArgs": [],
+
+   "remoteUser": "atlas",
+
+   "customizations": {
+      "vscode": {
+         "extensions": [
+            "ms-vscode.cpptools",
+            "ms-python.python",
+            "twxs.cmake"
+         ],
+         "settings": {
+            "terminal.integrated.shell.linux": "/bin/bash"
+         }
+      }
+   }
+}
